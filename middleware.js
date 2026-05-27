@@ -29,6 +29,21 @@ module.exports.isOwner = async (req, res, next) => {
     next();
 };
 
+module.exports.isOwner = async (req, res, next) => {
+    let { id } = req.params;
+
+    const listing = await Listing.findById(id);
+
+    if (!listing.owner || listing.owner.toString() !== req.user._id.toString()) {
+
+        req.flash("error", "You are not the owner of this listing!");
+
+        return res.redirect(`/listings/${id}`);
+    }
+
+    next();
+};
+
 module.exports.validateListing = (req,res,next) =>{
     let { error } = listingSchema.validate(req.body);
     if(error){
