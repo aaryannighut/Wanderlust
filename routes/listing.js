@@ -30,7 +30,7 @@ router.route("/:id")
     //     res.redirect(`/listings/${id}`);
     // })
     //below gives from chatgpt 
-    .put(isLoggedIn, isOwner, validateListing, wrapAsync(listingController.updateListing))
+    .put(isLoggedIn, isOwner, upload.single("listing[image]"), validateListing, wrapAsync(listingController.updateListing))
     //Delete Route
     .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing));
 
