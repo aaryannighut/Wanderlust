@@ -72,9 +72,6 @@ const sessionOptions = {
     },
 };
 
-// app.get("/",(req,res) => {
-//     res.send("Hii,I am root");
-// })
 
 
 app.use(session(sessionOptions)); 
@@ -94,37 +91,10 @@ app.use((req,res,next) => {
     next();
 })
 
-// app.get("/demouser", async(req,res) => {
-//     let fakeUser = new User({
-//         email: "student@gmail.com",
-//         username: "delta-student"
-//     });
-
-//     let registeredUser = await User.register(fakeUser, "helloworld");   //helloword is a password 
-//     res.send("registeredUser");
-// });
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
-
-// app.get("/testListing", async(req,res) => {
-//     let sampleListing = new Listing({
-//         title:"My new villa",
-//         description: "By the beach",
-//         price:1200,
-//         location: "Mumbai",
-//         country: "India",
-//     });
-
-//     await sampleListing.save();
-//     console.log("sample was save");
-//     res.send("Successful Testing");
-// });
-
-// app.all("*", (req,res,next) => {
-//     next(new ExpressError(404,"Page Not Found!"));
-// });
 
 app.use((err,req,res,next) => {
     let {statusCode = 500 , message="Something Went Wrong!" } = err;
